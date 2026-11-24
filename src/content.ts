@@ -3,21 +3,25 @@
 // roles and copy. Photos are routed through `PHOTOS` so real photography can
 // be swapped in by changing one path each.
 
+// Paths follow the deployed base path, so the same build also works from a
+// repository sub-path (GitHub Pages) and not only from a domain root.
+const photo = (file: string) => `${import.meta.env.BASE_URL}images/${file}`
+
 export const PHOTOS = {
-  hero: '/images/hero.webp',
-  joojeh: '/images/hero.webp',
-  skewers: '/images/skewers.webp',
-  nan: '/images/flatbread.webp',
-  dessert: '/images/cheesecake.webp',
-  vegetables: '/images/leeks.webp',
-  chef: '/images/chef.webp',
-  privateRoom: '/images/private-room.webp',
-  tajrish: '/images/loc-east-village.webp',
-  jordan: '/images/loc-williamsburg.webp',
-  saadatabad: '/images/loc-west-loop.webp',
-  qeytarieh: '/images/loc-silver-lake.webp',
-  karimkhan: '/images/loc-capitol-hill.webp',
-  tehranpars: '/images/loc-east-austin.webp',
+  hero: photo('hero.webp'),
+  joojeh: photo('hero.webp'),
+  skewers: photo('skewers.webp'),
+  nan: photo('flatbread.webp'),
+  dessert: photo('cheesecake.webp'),
+  vegetables: photo('leeks.webp'),
+  chef: photo('chef.webp'),
+  privateRoom: photo('private-room.webp'),
+  tajrish: photo('loc-east-village.webp'),
+  jordan: photo('loc-williamsburg.webp'),
+  saadatabad: photo('loc-west-loop.webp'),
+  qeytarieh: photo('loc-silver-lake.webp'),
+  karimkhan: photo('loc-capitol-hill.webp'),
+  tehranpars: photo('loc-east-austin.webp'),
 } as const
 
 export type PhotoKey = keyof typeof PHOTOS

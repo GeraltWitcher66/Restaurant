@@ -70,7 +70,7 @@ function Pages() {
 export function App() {
   return (
     <MotionConfig reducedMotion="user">
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
         <BookingsProvider>
           <ToastProvider>
             <ScrollManager />

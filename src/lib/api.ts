@@ -1,4 +1,9 @@
 import { todayISO, type Errors } from '../shared/validation'
+import { staticFetch } from './staticApi'
+
+// The same routes, answered in the browser when the site is hosted statically
+// (GitHub Pages) and there is no Worker behind it.
+const request: typeof fetch = import.meta.env.VITE_STATIC_API === 'true' ? staticFetch : fetch
 
 export class ApiError extends Error {
   status: number
@@ -22,7 +27,7 @@ async function handle<T>(res: Response): Promise<T> {
 export async function postJSON<T>(path: string, body: unknown): Promise<T> {
   let res: Response
   try {
-    res = await fetch(path, { method: 'POST', headers: headers(), body: JSON.stringify(body) })
+    res = await request(path, { method: 'POST', headers: headers(), body: JSON.stringify(body) })
   } catch {
     throw new ApiError(OFFLINE, 0)
   }
@@ -32,7 +37,7 @@ export async function postJSON<T>(path: string, body: unknown): Promise<T> {
 export async function getJSON<T>(path: string, signal?: AbortSignal): Promise<T> {
   let res: Response
   try {
-    res = await fetch(path, { headers: headers(), signal })
+    res = await request(path, { headers: headers(), signal })
   } catch (err) {
     if ((err as Error).name === 'AbortError') throw err
     throw new ApiError(OFFLINE, 0)
