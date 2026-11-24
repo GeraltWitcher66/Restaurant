@@ -43,6 +43,18 @@ bun run build
 `#private-dining`)، `/about` دربارهٔ ما، `/gift-cards` کارت هدیه،
 `/careers` همکاری، `/contact` تماس، `/styleguide` و صفحهٔ ۴۰۴.
 
+## انتشار روی GitHub Pages
+
+خروجی استاتیک (بدون Worker) با `bun run build:pages` ساخته می‌شود و ورک‌فلوی
+`.github/workflows/pages.yml` با هر پوش روی `main` آن را منتشر می‌کند:
+<https://geraltwitcher66.github.io/Restaurant/>.
+
+در این حالت مسیرها با پیشوند مخزن (`/Restaurant/`) ساخته می‌شوند و فرم‌ها به
+جای Worker در مرورگر پاسخ می‌گیرند (`src/lib/staticApi.ts` با همان
+اعتبارسنجی‌ها). `dist/404.html` هم مسیرهای تودرتو را به روتر می‌سپارد. اجرای
+`bun run build` دست‌نخورده می‌ماند و خروجی Worker را برای میزبانی سروردار
+می‌سازد.
+
 ## داده‌ها و Worker
 
 پایگاه داده‌ای وجود ندارد. رزروها و صندلی‌های رویداد در مرورگر ذخیره
